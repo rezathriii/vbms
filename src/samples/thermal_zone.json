@@ -1,0 +1,21 @@
+{
+  "measurement": "thermal_zone",
+  "tags": {
+    "zone_id": "BLOCK1:OFFICEXSE:X1F"
+  },
+  "time": "2005-01-08T14:10:00Z",
+  "fields": {
+    "mean_air_temperature": 19.999999999999996,
+    "operative_temperature": 19.514706045840008,
+    "air_relative_humidity": 34.97925689957627,
+    "air_co2_concentration": 458.145809335005,
+    "infiltration_air_change_rate": 0.7315056035060672,
+    "mech_ventilation_air_changes": 1.3586819013501712,
+    "internal_latent_gain": 33301.86885618515,
+    "cooling_rate": 0.0,
+    "heating_rate": 571.7452485324337,
+    "people_sensible_heat": 180.62590724689144,
+    "thermal_comfort_pmv": -0.9637096934706046,
+    "thermal_comfort_ppd": 24.616841167069545
+  }
+}

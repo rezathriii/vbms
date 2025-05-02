@@ -1,0 +1,5 @@
+pandas~=2.2.3
+zlib~=1.2.13
+readline~=8.2
+paho-mqtt~=2.1.0
+influxdb-client~=1.48.0

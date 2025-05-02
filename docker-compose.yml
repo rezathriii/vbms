@@ -1,0 +1,37 @@
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: vbms-mosquitto
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    restart: unless-stopped
+    networks:
+      - vbms
+
+  influxdb:
+    image: influxdb:2.7.11-alpine
+    container_name: vbms-influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./influxdb/data:/var/lib/influxdb2
+      - ./influxdb/config:/etc/influxdb2
+      - ./influxdb/logging.yaml:/etc/influxdb2/logging.yaml
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=root
+      - DOCKER_INFLUXDB_INIT_PASSWORD=123456789
+      - DOCKER_INFLUXDB_INIT_ORG=gp2
+      - DOCKER_INFLUXDB_INIT_BUCKET=gp2
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=AfXeKdMKMZUK1QFbkf283YLQDAghSS5LYblxxHJyAJm2cNeoYOYqr0AdjO-qgZZsNv8Jqoj-4qeBTNRpm33-4Q==
+    restart: unless-stopped
+    networks:
+      - vbms
+
+networks:
+  vbms:
+    driver: bridge

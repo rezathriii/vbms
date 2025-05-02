@@ -1,0 +1,11 @@
+{
+  "measurement": "site_metrics",
+  "time": "2005-01-03T14:10:00Z",
+  "fields": {
+    "interior_lights_electricity": 246077.8584953999,
+    "facility_electricity": 4076016.5556954,
+    "outdoor_air_temp": 5.5,
+    "diffuse_solar_radiation": 99.0,
+    "direct_solar_radiation": 4.333333333333332
+  }
+}
