@@ -1,7 +1,8 @@
 /all_outputs
 /src/eplus_env
 /influxdb/data/*
-
+/mosquitto/log/*
+/mosquitto/data/*
 
 ###########################
 # MacOS gitignore template
