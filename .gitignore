@@ -1,5 +1,6 @@
 /all_outputs
 /src/eplus_env
+/influxdb/data/*
 
 
 ###########################
