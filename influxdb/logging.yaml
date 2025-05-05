@@ -1,5 +1,0 @@
-loggers:
-  snowflake:
-    level: error
-  snowflake.ocsp:
-    level: error
