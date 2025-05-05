@@ -43,8 +43,8 @@ class InfluxDBStorage:
                 self.write_site_metrics_data(payload)
 
             print(f"The New Data Is Written To InfluxDB Successfully!")
-            print(f"Topic: {message.topic}")
-            print(f"Payload: {payload}\n")
+            # print(f"Topic: {message.topic}")
+            # print(f"Payload: {payload}\n")
 
         except json.JSONDecodeError as e:
             print(f"Error decoding JSON: {e}")

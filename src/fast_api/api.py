@@ -5,6 +5,7 @@ from typing import Optional, List, Union, Dict
 from pydantic import BaseModel
 import statistics
 
+# INFLUXDB_URL = "http://localhost:8086"
 INFLUXDB_URL = "http://influxdb:8086"
 BUCKET_TOKEN = "AfXeKdMKMZUK1QFbkf283YLQDAghSS5LYblxxHJyAJm2cNeoYOYqr0AdjO-qgZZsNv8Jqoj-4qeBTNRpm33-4Q=="
 INFLUXDB_ORG = "gp2"
@@ -194,12 +195,17 @@ async def get_temperatures(
         range_stop = format_time(end_time) if end_time else "now()"
 
         # Query outdoor temperatures
-        outdoor_query = build_site_metrics_query(range_start, range_stop)
+        outdoor_query = f"""
+        from(bucket: "{INFLUXDB_BUCKET}")
+          |> range(start: {range_start}, stop: {range_stop})
+          |> filter(fn: (r) => r._measurement == "site_metrics")
+          |> filter(fn: (r) => r._field == "outdoor_air_temp")
+          |> keep(columns: ["_time", "_value"])
+        """
         outdoor_results = query_api.query(outdoor_query)
         outdoor_temps = {record.values["_time"]: record.values["_value"]
                          for table in outdoor_results
-                         for record in table.records
-                         if record.get_field() == "outdoor_air_temp"}
+                         for record in table.records}
 
         # Query indoor temperatures
         zone_filter = f'r.zone_id == "{zone_id}"' if zone_id else 'true'
@@ -212,7 +218,6 @@ async def get_temperatures(
         """
         indoor_results = query_api.query(indoor_query)
 
-        # Process results
         indoor_temps_by_time = {}
         for table in indoor_results:
             for record in table.records:
@@ -221,7 +226,6 @@ async def get_temperatures(
                     indoor_temps_by_time[timestamp] = {}
                 indoor_temps_by_time[timestamp][record.values.get("zone_id")] = record.values["_value"]
 
-        # Build response
         response_data = []
         all_timestamps = set(outdoor_temps.keys()).union(set(indoor_temps_by_time.keys()))
 
