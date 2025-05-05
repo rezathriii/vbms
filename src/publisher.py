@@ -1,5 +1,6 @@
 import json
 import csv
+import time
 from src.mqtt_classes.mqtt_publisher import MQTTPublisher
 from src.constants import FILTERED_DATA_CSV, MQTT_PORT, MQTT_BROKER
 from src.utils import parse_datetime
@@ -71,8 +72,7 @@ class PublishMetrics:
                                 }
                             }
 
-                            topic = "building/thermal_zones_metrics"
-                            self.mqtt_publisher.publish(topic, json.dumps(payload))
+                            self.mqtt_publisher.publish("building/thermal_zones_metrics", json.dumps(payload))
 
                 site_payload = {
                     "measurement": "site_metrics",
@@ -86,6 +86,7 @@ class PublishMetrics:
                     }
                 }
                 self.mqtt_publisher.publish("building/site_metrics", json.dumps(site_payload))
+                time.sleep(2)
 
             print("Simulation Complete!!!")
 

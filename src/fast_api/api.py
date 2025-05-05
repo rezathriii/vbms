@@ -5,7 +5,7 @@ from typing import Optional, List, Union, Dict
 from pydantic import BaseModel
 import statistics
 
-INFLUXDB_URL = "http://localhost:8086"
+INFLUXDB_URL = "http://influxdb:8086"
 BUCKET_TOKEN = "AfXeKdMKMZUK1QFbkf283YLQDAghSS5LYblxxHJyAJm2cNeoYOYqr0AdjO-qgZZsNv8Jqoj-4qeBTNRpm33-4Q=="
 INFLUXDB_ORG = "gp2"
 INFLUXDB_BUCKET = "gp2"

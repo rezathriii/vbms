@@ -1,4 +1,15 @@
 services:
+  fast_api:
+    build:
+      context: src/fast_api
+      dockerfile: Dockerfile
+    container_name: vbms-fastapi
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    networks:
+      - vbms
+
   mosquitto:
     image: eclipse-mosquitto:2.0
     container_name: vbms-mosquitto
@@ -20,7 +31,6 @@ services:
     volumes:
       - ./influxdb/data:/var/lib/influxdb2
       - ./influxdb/config:/etc/influxdb2
-      - ./influxdb/logging.yaml:/etc/influxdb2/logging.yaml
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
       - DOCKER_INFLUXDB_INIT_USERNAME=root

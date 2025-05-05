@@ -42,6 +42,10 @@ class InfluxDBStorage:
             elif message.topic == "building/site_metrics":
                 self.write_site_metrics_data(payload)
 
+            print(f"The New Data Is Written To InfluxDB Successfully!")
+            print(f"Topic: {message.topic}")
+            print(f"Payload: {payload}\n")
+
         except json.JSONDecodeError as e:
             print(f"Error decoding JSON: {e}")
         except Exception as e:
@@ -58,7 +62,7 @@ class InfluxDBStorage:
                 point.field(field, round(float(value), 4))
 
             response = self.write_api.write(bucket="gp2", record=point)
-            print(f"Written thermal zone data!")
+            # print(f"Written thermal zone data!")
         except Exception as e:
             print(f"Error writing thermal zone data: {e}")
 
@@ -72,7 +76,7 @@ class InfluxDBStorage:
                 point.field(field, round(float(value), 4))
 
             self.write_api.write(bucket="gp2", record=point)
-            print("Written site metrics data!")
+            # print("Written site metrics data!")
         except Exception as e:
             print(f"Error writing site metrics: {e}")
 

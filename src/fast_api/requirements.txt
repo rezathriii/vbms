@@ -1,0 +1,4 @@
+influxdb-client~=1.48.0
+fastapi~=0.112.2
+pydantic~=2.10.3
+uvicorn

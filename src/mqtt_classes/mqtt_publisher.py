@@ -1,3 +1,4 @@
+import time
 import paho.mqtt.client as mqtt
 
 
@@ -24,7 +25,7 @@ class MQTTPublisher:
         """Called when the broker responds to our connection request"""
         if rc == 0:
             self.connected = True
-            print(f"Connected to MQTT Broker at {self.broker_address}:{self.broker_port}")
+            print(f"A Publisher Is Connected to MQTT Broker at {self.broker_address}:{self.broker_port}\n")
             if self.on_connect_callback:
                 self.on_connect_callback(client, userdata, flags, rc)
         else:
@@ -39,7 +40,7 @@ class MQTTPublisher:
 
     def on_publish(self, client, userdata, mid):
         """Called when a message that was to be sent using the publish() call has completed transmission"""
-        print(f"Message published (mid: {mid})")
+        # print(f"Message published (mid: {mid})")
         if self.on_publish_callback:
             self.on_publish_callback(client, userdata, mid)
 
@@ -54,6 +55,7 @@ class MQTTPublisher:
             self.client.connect(self.broker_address, port=self.broker_port)
             # Start network loop in a separate thread
             self.client.loop_start()
+            time.sleep(3)
         except Exception as e:
             print(f"Connection error: {e}")
 

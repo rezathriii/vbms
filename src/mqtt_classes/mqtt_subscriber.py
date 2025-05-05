@@ -27,7 +27,7 @@ class MQTTSubscriber:
         """Called when the broker responds to our connection request"""
         if rc == 0:
             self.connected = True
-            print(f"Connected to MQTT Broker at {self.broker_address}:{self.broker_port}")
+            print(f"A Subscriber Is Connected to MQTT Broker at {self.broker_address}:{self.broker_port}")
             if self.topic:
                 self.subscribe(self.topic)
             if self.on_connect_callback:
@@ -51,7 +51,7 @@ class MQTTSubscriber:
             "retain": message.retain
         }
         self.received_messages.append(msg)
-        print(f"Received message on topic {msg['topic']}: {msg['payload']}")
+        # print(f"Received message on topic {msg['topic']}: {msg['payload']}")
         if self.on_message_callback:
             self.on_message_callback(client, userdata, message)
 
