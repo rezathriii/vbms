@@ -259,13 +259,23 @@ async def delete_all_data():
     """
     try:
         delete_api = client.delete_api()
+
         delete_api.delete(
             start="1970-01-01T00:00:00Z",
             stop="2100-01-01T00:00:00Z",
-            predicate='_measurement="thermal_zone" or _measurement="site_metrics"',
+            predicate='_measurement="thermal_zone"',
             bucket=INFLUXDB_BUCKET,
             org=INFLUXDB_ORG
         )
+
+        delete_api.delete(
+            start="1970-01-01T00:00:00Z",
+            stop="2100-01-01T00:00:00Z",
+            predicate='_measurement="site_metrics"',
+            bucket=INFLUXDB_BUCKET,
+            org=INFLUXDB_ORG
+        )
+
         return {"message": "All data has been deleted successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
